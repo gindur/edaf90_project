@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import ReactSlider from 'react-slider';
+import Filter from "../model/filter.mjs";
 
 
-function MovieForm({formOptions}) {
+function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
     console.log(formOptions);
     const genreOptions = formOptions.genres.genres.map((genre) => {
         return { value: genre.id, label: genre.name };
@@ -34,21 +35,30 @@ function MovieForm({formOptions}) {
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage);
     const [yearRange, setYearRange] = useState([1921, 2024]);
     const [selectedService, setSelectedService] = useState(preselectedServices);
-
     const handleGenreChange = (selected) => {
         setSelectedGenres(selected);
+        const genreIds = selected.map(value => value["value"]);
+        setFilter(filter.setGenre(genreIds));
+        updateSelectedMovies()
     };
 
     const handleLanguageChange = (selected) => {
         setSelectedLanguage(selected);
+        setFilter(filter.setLanguage(selected["value"]));
+        updateSelectedMovies()
     };
 
     const handleServiceChange = (selected) => {
         setSelectedService(selected);
+        const serviceIds = selected.map(value => value["value"]);
+        setFilter(filter.setProvider(serviceIds));
+        updateSelectedMovies()
     };
 
     const handleSliderChange = (values) => {
         setYearRange(values);
+        setFilter(filter.setYear(values[0], values[1]));
+        updateSelectedMovies()
     };
 
   return (

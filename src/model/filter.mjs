@@ -9,7 +9,7 @@
 
 class Filter {
     constructor() {
-        this.params = {"with_watch_providers": [], "with_crew": [], "with_genres": [], "watch_region": "SE"}
+        this.params = {"watch_region": "SE"}
     }
 
     setSort(strategy) {
@@ -22,46 +22,44 @@ class Filter {
         return this;
     }
 
-    addGenre(genre) {
-        this.params["with_genres"].push(genre);
+    setGenre(genres) {
+        this.params["with_genres"] = genres;
         return this;
     }
 
     setYear(minYear, maxYear) {
-        this.params["release_date.gte"] = minYear;
-        this.params["release_date.lte"] = maxYear;
+        this.params["release_date.gte"] = minYear + "-01-01";
+        this.params["release_date.lte"] = maxYear + "-01-01";
         return this;
     }
 
-    addProvider(provider) {
-        this.params["with_watch_providers"].push(provider);
+    setProvider(providers) {
+        this.params["with_watch_providers"] = providers;
         return this;
     }
 
-    addDirector(director) {
-        this.params["with_crew"].push(director);
+    setDirector(providers) {
+        this.params["with_crew"] = providers;
         return this;
     }
 
     toString() {
         const paramsStr = Object.keys(this.params).map(name => {
             const param = this.params[name];
-            if (Array.isArray(param)) {
-                param.reduce((tot, value) => tot + "||" + value);
-            } else {
-                name + "=" + param;
+            if (param && Array.isArray(param) && param.length != 0) {
+                return name + "=" + param.join("%7C%7C");
+            } else if (param) {
+                return name + "=" + param;
             }
         });
 
-        return paramsStr.reduce((tot, value) => tot + "&" + value)
-    }
+        console.log("paramstr", paramsStr)
 
-    toUrl() {
-        return URL(
-            host
-        )
+        return paramsStr.join("&");
     }
 }
+
+
 
 const filterTypes = {
     "sort": ["original_title.asc"],
@@ -99,3 +97,4 @@ const Director = {
 // prime: 119
 // appleTV: 2
 // appleTv+: 350
+export default Filter;

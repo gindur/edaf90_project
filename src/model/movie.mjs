@@ -15,9 +15,9 @@ class Movie {
     }
 
     static parse(jsonMovie){
-        const parsed = JSON.parse(jsonMovie);
-        if (Array.isArray(parsedMovie)){
-            return parsed.map(movieData => {
+        console.log(jsonMovie);
+        if (Array.isArray(jsonMovie)){
+            return jsonMovie.map(movieData => {
                 return new Movie(
                     movieData.id,
                     movieData.genre_id,
@@ -34,17 +34,17 @@ class Movie {
             });
         } else {
             return new Movie(
-                parsed.id,
-                parsed.genre_id,
-                parsed.original_language, 
-                parsed.original_title, 
-                parsed.overview, 
-                parsed.popularity, 
-                parsed.poster_path, 
-                parsed.release_date, 
-                parsed.title, 
-                parsed.vote_average, 
-                parsed.vote_count)
+                jsonMovie.id,
+                jsonMovie.genre_id,
+                jsonMovie.original_language, 
+                jsonMovie.original_title, 
+                jsonMovie.overview, 
+                jsonMovie.popularity, 
+                jsonMovie.poster_path, 
+                jsonMovie.release_date, 
+                jsonMovie.title, 
+                jsonMovie.vote_average, 
+                jsonMovie.vote_count)
         }
     } 
 }

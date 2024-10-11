@@ -1,7 +1,7 @@
-function MovieResult() {
+function MovieResult({selectedMovie}) {
     return (
         <div className="movie-result-container">
-            <h1>The Godfather</h1>
+            <h1>{selectedMovie}</h1>
         </div>
     );
 }

@@ -1,7 +1,5 @@
-const base = import.meta.env.VITE_API_BASE_URL;
-        const bearer = import.meta.env.VITE_API_BEARER;
+const bearer = import.meta.env.VITE_API_BEARER;
 
-const baseUrl = new URL(base);
 
 function safeFetchJson(url) {
   return fetch(url, {

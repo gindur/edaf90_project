@@ -3,15 +3,30 @@ import MovieWheel from "./MovieWheel";
 import MovieResult from "./MovieResult";
 import { useLoaderData } from 'react-router-dom';
 import { useState } from "react";
+import Filter from "../model/filter.mjs";
+import movieLoader from "../loaders/movieLoader";
+const colors = ['#F5C519', '#DC2026'];
 
 function MoviePage() {
+
     const [movieList, setMovieList] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-    const [selectedGenre, setSelectedGenre] = useState([null]);
-    const [selectedReleaseYearInterval, setSelectedReleaseYearInterval] = useState({start: null, end: null});
-    const [selectedStreamingService, setSelectedStreamingService] = useState([null]);
+    const [filter, setFilter] = useState(new Filter());
 
+    const updateSelectedMovies = async () => {
+        const params = filter.toString();
+        const movies = await movieLoader(params);
+        // do api fetch...
+        const segments = movies.map((movie, index) => {
+            return {segmentText: movie.title, segColor: colors[index%colors.length] }
+          }).slice(0, 10);
+
+        console.log("segments", segments);
+        
+        
+        setMovieList(segments);
+    }
     const formOptions = useLoaderData();
 
     return (
@@ -21,11 +36,10 @@ function MoviePage() {
                 <p>Let the wheel decide what you watch tonight</p>
             </div>
             <MovieForm
-                setMovieList={setMovieList}
-                setSelectedGenre={setSelectedGenre}
-                setSelectedReleaseYearInterval={setSelectedReleaseYearInterval}
-                setSelectedStreamingService={setSelectedStreamingService}
+                filter={filter}
+                setFilter={setFilter}
                 formOptions={formOptions}
+                updateSelectedMovies={updateSelectedMovies}
             />
             <MovieWheel
                 movieList = {movieList}

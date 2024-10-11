@@ -9,7 +9,14 @@
 
 class Filter {
     constructor() {
-        this.params = {"watch_region": "SE"}
+        this.params = {
+            "watch_region": {"value": "SE", "label": "Sweden"}, 
+            "with_genres": [{"value": 53, "label": "Thriller"}, {"value": 18, "label": "Drama"}],
+            "language": {"value": "en" , "label": "English" },
+            "release_date.gte": {"value": "1888-01-01", "label": 1888},
+            "release_date.lte": {"value": "2024-01-01", "label": 2024},
+            "with_watch_providers": [{"value": 8, "label": "Netflix"}, {"value": 1899, "label": "Max"}]
+        }
     }
 
     setSort(strategy) {
@@ -28,8 +35,8 @@ class Filter {
     }
 
     setYear(minYear, maxYear) {
-        this.params["release_date.gte"] = minYear + "-01-01";
-        this.params["release_date.lte"] = maxYear + "-01-01";
+        this.params["release_date.gte"] = {"value": minYear + "-01-01", "label": minYear};
+        this.params["release_date.lte"] = {"value": maxYear + "-01-01", "label": maxYear};
         return this;
     }
 
@@ -38,8 +45,8 @@ class Filter {
         return this;
     }
 
-    setDirector(providers) {
-        this.params["with_crew"] = providers;
+    setDirector(directors) {
+        this.params["with_crew"] = directors;
         return this;
     }
 
@@ -47,13 +54,11 @@ class Filter {
         const paramsStr = Object.keys(this.params).map(name => {
             const param = this.params[name];
             if (param && Array.isArray(param) && param.length != 0) {
-                return name + "=" + param.join("%7C%7C");
+                return name + "=" + param.map(p => p.value).join("%7C%7C");
             } else if (param) {
-                return name + "=" + param;
+                return name + "=" + param.value;
             }
         });
-
-        console.log("paramstr", paramsStr)
 
         return paramsStr.join("&");
     }

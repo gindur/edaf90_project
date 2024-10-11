@@ -4,9 +4,8 @@ import ReactSlider from 'react-slider';
 import Filter from "../model/filter.mjs";
 
 
-function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
-    console.log(formOptions);
-    const genreOptions = formOptions.genres.genres.map((genre) => {
+function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showResult}) {
+    const genreOptions = formOptions.genres.map((genre) => {
         return { value: genre.id, label: genre.name };
     });
 
@@ -14,43 +13,29 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
         return { value: language.iso_639_1, label: language.english_name };
     });
     //logos can be found at https://www.themoviedb.org/t/p/original/{logo_path}
-    const streamingOptions = formOptions.providers.results.map((service) => {
+    const streamingOptions = formOptions.providers.map((service) => {
         return { value: service.provider_id, label: service.provider_name };
     });
 
-    // **Preselect Thriller, Drama for genres**
-    const preselectedGenres = genreOptions.filter(option =>
-        option.label === 'Thriller' || option.label === 'Drama'
-    );
-
-    // **Preselect English for language**
-    const preselectedLanguage = languageOptions.find(option => option.label === 'English');
-
-    // **Preselect Netflix and HBO for streaming services**
-    const preselectedServices = streamingOptions.filter(option =>
-        option.label === 'Netflix' || option.label === 'Max'
-    );
-
-    const [selectedGenres, setSelectedGenres] = useState(preselectedGenres);
-    const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage);
-    const [yearRange, setYearRange] = useState([1921, 2024]);
-    const [selectedService, setSelectedService] = useState(preselectedServices);
+    const [selectedGenres, setSelectedGenres] = useState(filter.params["with_genres"]);
+    const [selectedLanguage, setSelectedLanguage] = useState(filter.params["language"]);
+    const [yearRange, setYearRange] = useState([filter.params["release_date.gte"].label, filter.params["release_date.lte"].label]);
+    const [selectedService, setSelectedService] = useState(filter.params["with_watch_providers"]);
     const handleGenreChange = (selected) => {
         setSelectedGenres(selected);
-        const genreIds = selected.map(value => value["value"]);
-        setFilter(filter.setGenre(genreIds));
+        setFilter(filter.setGenre(selected));
         updateSelectedMovies()
     };
 
     const handleLanguageChange = (selected) => {
         setSelectedLanguage(selected);
-        setFilter(filter.setLanguage(selected["value"]));
+        setFilter(filter.setLanguage(selected));
         updateSelectedMovies()
     };
 
     const handleServiceChange = (selected) => {
         setSelectedService(selected);
-        const serviceIds = selected.map(value => value["value"]);
+        const serviceIds = selected.map(value => value);
         setFilter(filter.setProvider(serviceIds));
         updateSelectedMovies()
     };
@@ -62,6 +47,8 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
     };
 
   return (
+    <>
+    {!showResult &&
     <div className="form-container">
         <div className="form-container-inner">
             <h2 className="secondary-color">Let the wheel decide 🍿</h2>
@@ -77,7 +64,7 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
             </div>
 
             <div className='dropdown-container'>
-                <p>2. What language do you know?</p>
+                <p>2. What language should be spoken in the movie?</p>
                 <Select
                     options={languageOptions}
                     value={selectedLanguage}
@@ -92,24 +79,29 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
                 className="horizontal-slider"
                 thumbClassName="example-thumb"
                 trackClassName="example-track"
-                min={1921}
+                min={1888}
                 max={2024}
                 value={yearRange}
-                onChange={handleSliderChange}
+                onAfterChange={handleSliderChange}
                 ariaLabel={['Lower thumb', 'Upper thumb']}
                 pearling
                 minDistance={1}
-                renderThumb={(props, state) => (
-                    <div {...props}>
-                    <div className="thumb-label">{state.valueNow}</div>
-                    <div className="thumb" />
-                    </div>
-                )}
+                renderThumb={(props, state) => {
+                    const {key, ...restProps} = props;
+                    return (
+                        <div key={key} {...restProps}>
+                        <div className="thumb-label">{state.valueNow}</div>
+                        <div className="thumb" />
+                        </div>
+                    );
+                }}
                 renderTrack={(props, state) => {
                     const isActive = state.index === 1;
+                    const {key, ...restProps} = props;
                     return (
                     <div
-                        {...props}
+                        key={key}
+                        {...restProps}
                         style={{
                         ...props.style,
                         backgroundColor: isActive ? '#F5C519' : '#fff',
@@ -133,6 +125,9 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
             </div>
         </div>
     </div>
+    
+    }
+    </>
   );
 }
 

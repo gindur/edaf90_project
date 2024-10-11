@@ -15,7 +15,6 @@ class Movie {
     }
 
     static parse(jsonMovie){
-        console.log(jsonMovie);
         if (Array.isArray(jsonMovie)){
             return jsonMovie.map(movieData => {
                 return new Movie(

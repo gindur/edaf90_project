@@ -1,24 +1,10 @@
 import React from 'react';
+import { useEffect, useRef, useLayoutEffect } from 'react';
 import { SpinWheel } from 'spin-wheel-game';
 
-// const segments = [
-//   { segmentText: 'Wild strawberries', segColor: '#A72608' },
-//   { segmentText: '12 angry men', segColor: '#4ECDC4' },
-//   { segmentText: 'Beautiful mind', segColor: '#FF6B6B' },
-//   { segmentText: 'The Godfather', segColor: '#662E9B' },
-//   { segmentText: 'Shawshank Redemption', segColor: '#077187' },
-//   { segmentText: '2001: A Space Odyssey', segColor: '#F2542D' },
-//   // Add more segments as needed
-// ];
+function MovieWheel({movieList, handleSpinFinish}) {
 
-function MovieWheel({movieList, setSelectedMovie}) {
-
-
-  const handleSpinFinish = (result) => {
-    console.log(`Spun to: ${result}`);
-    // Handle the result as needed
-    setSelectedMovie(result);
-  };
+  const randomDownDuration = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
 
   const spinWheelProps = {
     segments: movieList,
@@ -29,10 +15,10 @@ function MovieWheel({movieList, setSelectedMovie}) {
     isOnlyOnce: false,
     size: 200,
     upDuration: 100,
-    downDuration: 600,
+    downDuration: randomDownDuration,
     fontFamily: 'Arial',
     arrowLocation: 'top',
-    showTextOnSpin: true,
+    showTextOnSpin: false,
     isSpinSound: true,
   };
 

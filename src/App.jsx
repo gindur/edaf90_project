@@ -11,7 +11,7 @@ function App() {
   const navigation = useNavigation();
 
   return (
-    <div>
+    <div class="main-content">
       <Header />
       {navigation.state === "loading" ? (
         <Spinner />

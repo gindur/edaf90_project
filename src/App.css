@@ -308,6 +308,10 @@ SLIDER SELECTOR
   transform: translateX(-50%);
 }
 
+.thumb-label:focus, .example-thumb:focus {
+  outline: none;
+}
+
 /*
 MOVIE RESULT STYLES
 */

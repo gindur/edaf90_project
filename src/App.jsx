@@ -12,15 +12,17 @@ function App() {
   const navigation = useNavigation();
 
   return (
-    <div className="spotlight-div">
-      <Header />
-      {navigation.state === "loading" ? (
-        <Spinner />
-      ) : (
-        <Outlet />
-      )}
+    <div className="background-div">
+      <div>
+        <Header />
+        {navigation.state === "loading" ? (
+          <Spinner />
+        ) : (
+          <Outlet />
+        )}
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   )
 }

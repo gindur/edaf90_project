@@ -13,6 +13,10 @@ h2 {
   font-size: 2rem;
 }
 
+h3 {
+  font-size: 1.5rem;
+}
+
 @media screen and (max-width: 599px) {
   h2 {
     font-size: 1.5rem;
@@ -34,8 +38,8 @@ COLORS
   --secondary-color: #F5C519;
   --secondary-color-light: #f3e19f;
 
-  --bg-color: #1F1F1F;
-  --bg-color-light: #2F2F2F;
+  --bg-color: #121212;
+  --bg-color-light: #1F1F1F;
 
   --header-bg-color: #1F1F1F;
   --footer-bg-color: #1F1F1F;
@@ -61,13 +65,8 @@ p, span {
   color: var(--primary-color);
 }
 
-.spotlight-div {
-  position: relative;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.7) 70%);
-  background-position: center;
-  background-size: cover;
-  box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
-  z-index: 10;
+html, #root {
+  background-color: var(--bg-color);
 }
 
 /*
@@ -76,10 +75,6 @@ PAGE DIMENSIONS
 :root {
   --gutter-desktop: 50px;
   --gutter-mobile: 20px;
-}
-
-html, #root {
-  background: #090909;
 }
 
 #root {

@@ -4,7 +4,7 @@ import ReactSlider from 'react-slider';
 import Filter from "../model/filter.mjs";
 
 
-function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showResult}) {
+function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
     const genreOptions = formOptions.genres.map((genre) => {
         return { value: genre.id, label: genre.name };
     });
@@ -47,8 +47,6 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showRe
     };
 
   return (
-    <>
-    {!showResult &&
     <div className="form-container">
         <div className="form-container-inner">
             <h2 className="secondary-color">Let the wheel decide 🍿</h2>
@@ -64,7 +62,7 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showRe
             </div>
 
             <div className='dropdown-container'>
-                <p>2. What language should be spoken in the movie?</p>
+                <p>2. What language should be spoken?</p>
                 <Select
                     options={languageOptions}
                     value={selectedLanguage}
@@ -74,7 +72,7 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showRe
             </div>
 
             <div>
-                <p className="pb-3">3. Between what years should the movie be released?</p>
+                <p className="pb-3">3. When should the movie be released?</p>
                 <ReactSlider
                 className="horizontal-slider"
                 thumbClassName="example-thumb"
@@ -114,7 +112,7 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showRe
         </div>
 
             <div className='dropdown-container'>
-                <p>4. What streaming services do you have access to?</p>
+                <p>4. What streaming services do you have?</p>
                 <Select
                 isMulti
                 options={streamingOptions}
@@ -125,9 +123,6 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies, showRe
             </div>
         </div>
     </div>
-    
-    }
-    </>
   );
 }
 

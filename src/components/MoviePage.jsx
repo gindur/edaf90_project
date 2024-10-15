@@ -2,7 +2,7 @@ import MovieForm from "./MovieForm";
 import MovieWheel from "./MovieWheel";
 import MovieResult from "./MovieResult";
 import { useLoaderData } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Filter from "../model/filter.mjs";
 import movieLoader from "../loaders/movieLoader";
 const colors = ['#F5C519', '#DC2026'];
@@ -11,9 +11,18 @@ function MoviePage() {
     const {formOptions, movies} = useLoaderData();
 
     const createMovieSegments = (movies) => {
-        return movies.map((movie, index) => {
-            return {segmentText: movie.title, segColor: colors[index%colors.length] }
-          }).slice(0, 10);
+        try{
+            return movies.map((movie) => {
+                return {
+                    option: movie.title,
+                    image: {
+                        uri: `https://www.themoviedb.org/t/p/original/${movie.poster_path}`,
+                        offsetY: 200,
+                    }}
+            }).slice(0, 9);
+        } catch {
+            return null;
+        }
     }
 
     const [filter, setFilter] = useState(new Filter());
@@ -21,6 +30,7 @@ function MoviePage() {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [movieList, setMovieList] = useState(createMovieSegments(movies));
     const [showResult, setShowResult] = useState(false);
+    const resultsContainerRef = useRef(null);
 
     const updateSelectedMovies = async () => {
         const params = filter.toString();
@@ -30,36 +40,44 @@ function MoviePage() {
         setMovieList(segments);
     }
 
-
-    const handleSpinFinish = (result) => {
+    function handleSpinFinish(result) {
         let res = movieInfo.filter(movie => movie.title === result);
         setSelectedMovie(res[0] ? res[0] : null);
         setShowResult(true);
+        if (resultsContainerRef.current) {
+            const yOffset = 70;
+            const y = resultsContainerRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
     }
 
     return (
         <main>
-            <div className="title-container">
+            <div className="title-container" ref={resultsContainerRef}>
                 <h3>Can't decide what movie to watch?</h3>
                 <p>Let the wheel decide what you watch tonight</p>
             </div>
-            <MovieWheel
-                movieList = {movieList}
-                handleSpinFinish={handleSpinFinish}
-            />
-            <MovieForm
-                filter={filter}
-                setFilter={setFilter}
-                formOptions={formOptions}
-                updateSelectedMovies={updateSelectedMovies}
-                showResult={showResult}
-                setShowResult={setShowResult}
-            />
-            <MovieResult
-                selectedMovie={selectedMovie}
-                showResult={showResult}
-                setShowResult={setShowResult}
-            />
+            {!showResult &&
+                <>
+                <MovieForm
+                    filter={filter}
+                    setFilter={setFilter}
+                    formOptions={formOptions}
+                    updateSelectedMovies={updateSelectedMovies}
+                    setShowResult={setShowResult}
+                />
+                <MovieWheel
+                    movieList = {movieList}
+                    handleSpinFinish={handleSpinFinish}
+                />
+                </>
+            }
+            {showResult &&
+                <MovieResult
+                    selectedMovie={selectedMovie}
+                    setShowResult={setShowResult}
+                />
+            }
         </main>
     );
 }

@@ -6,6 +6,7 @@ function Header() {
                 <div>
                     <span>Movie</span><span>Wheel</span>
                 </div>
+                <img src="/wheel.png" />
             </div>
         </div>
     </header>

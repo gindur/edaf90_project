@@ -13,7 +13,7 @@ class Filter {
             "watch_region": {"value": "SE", "label": "Sweden"}, 
             "with_genres": [{"value": 53, "label": "Thriller"}, {"value": 18, "label": "Drama"}],
             "language": {"value": "en" , "label": "English" },
-            "release_date.gte": {"value": "1888-01-01", "label": 1888},
+            "release_date.gte": {"value": "1919-01-01", "label": 1910},
             "release_date.lte": {"value": "2024-01-01", "label": 2024},
             "with_watch_providers": [{"value": 8, "label": "Netflix"}, {"value": 1899, "label": "Max"}]
         }

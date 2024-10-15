@@ -77,7 +77,7 @@ function MovieForm({filter, setFilter, formOptions, updateSelectedMovies}) {
                 className="horizontal-slider"
                 thumbClassName="example-thumb"
                 trackClassName="example-track"
-                min={1888}
+                min={1910}
                 max={2024}
                 value={yearRange}
                 onAfterChange={handleSliderChange}

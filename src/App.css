@@ -189,6 +189,7 @@ FORM STYLES
 */
 
 .form-container {
+  z-index: 110;
   max-width: 500px;
   margin: 0 auto;
   z-index: 100;
@@ -277,6 +278,10 @@ DROPDOWN ELEMENT
 
 .css-1nmdiq5-menu {
   z-index: 100!important;
+}
+
+.css-b62m3t-container, .css-b62m3t-container {
+  z-index: 1000!important;
 }
 
 /*
@@ -391,7 +396,6 @@ MOVIE RESULT STYLES
 
 .spin-the-wheel-button {
   position: absolute;
-  z-index: 100;
   border: 1px solid black;
   background: #F5C519;
   color: black;

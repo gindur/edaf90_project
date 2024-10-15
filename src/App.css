@@ -78,14 +78,13 @@ PAGE DIMENSIONS
   --gutter-mobile: 20px;
 }
 
-html {
+html, #root {
   background: #090909;
 }
 
 #root {
   width: 100%;
   margin: 0 auto;
-  background: var(--bg-color);
 }
 
 /*

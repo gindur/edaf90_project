@@ -1,4 +1,5 @@
 import { Outlet, useNavigation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
@@ -11,7 +12,7 @@ function App() {
   const navigation = useNavigation();
 
   return (
-    <div>
+    <div className="spotlight-div">
       <Header />
       {navigation.state === "loading" ? (
         <Spinner />

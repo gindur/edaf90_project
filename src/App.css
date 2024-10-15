@@ -2,8 +2,11 @@
 FONTS
 */
 h1, h2, h3, h4, h5, h6, .logo {
-  font-family: "Limelight", sans-serif;
   font-weight: bold;
+}
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
 h2 {
@@ -58,6 +61,15 @@ p, span {
   color: var(--primary-color);
 }
 
+.spotlight-div {
+  position: relative;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.7) 70%);
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
 /*
 PAGE DIMENSIONS
 */
@@ -67,7 +79,7 @@ PAGE DIMENSIONS
 }
 
 html {
-  background: var(--bg-color);
+  background: #090909;
 }
 
 #root {
@@ -82,7 +94,6 @@ HEADER STYLES
 
 header {
   padding: 0 var(--gutter-desktop);
-  background: var(--header-bg-color);
   max-width: 200px;
   margin: 0 auto;
 }
@@ -167,7 +178,6 @@ footer {
   display: flex;
   justify-content: center;
   padding: 30px 50px;
-  background: var(--footer-bg-color);
 }
 
 .footer-inner {

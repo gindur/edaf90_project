@@ -399,4 +399,5 @@ MOVIE RESULT STYLES
   border: 1px solid black;
   background: #F5C519;
   color: black;
+  z-index: 100;
 }

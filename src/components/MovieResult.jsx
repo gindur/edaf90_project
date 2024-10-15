@@ -13,8 +13,8 @@ function MovieResult({selectedMovie, setShowResult}) {
                         </span>
                     </li>
                     <li>
-                        <span className="secondary-color">Release date:</span>
-                        <span>{selectedMovie.release_date}</span>
+                        <span className="secondary-color">Release year:</span>
+                        <span>{selectedMovie.release_date.split('-')[0]}</span>
                     </li>
                     <li>
                         <span className="secondary-color">Popularity:</span>

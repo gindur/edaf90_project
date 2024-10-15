@@ -59,17 +59,19 @@ function MoviePage() {
                     <h3>Can't decide what movie to watch?</h3>
                     <p>Let the wheel decide what you watch tonight</p>
                 </div>
-                <MovieForm
-                    filter={filter}
-                    setFilter={setFilter}
-                    formOptions={formOptions}
-                    updateSelectedMovies={updateSelectedMovies}
-                    setShowResult={setShowResult}
-                />
-                <MovieWheel
-                    movieList = {movieList}
-                    handleSpinFinish={handleSpinFinish}
-                />
+                <div className="form-wheel-container">
+                    <MovieForm
+                        filter={filter}
+                        setFilter={setFilter}
+                        formOptions={formOptions}
+                        updateSelectedMovies={updateSelectedMovies}
+                        setShowResult={setShowResult}
+                    />
+                    <MovieWheel
+                        movieList = {movieList}
+                        handleSpinFinish={handleSpinFinish}
+                    />
+                </div>
                 </>
             }
             {showResult &&

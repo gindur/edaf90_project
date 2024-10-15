@@ -266,7 +266,7 @@ DROPDOWN ELEMENT
   background: var(--secondary-color)!important;
 }
 
-.css-v7duua:hover {
+.css-v7duua:hover, .css-v7duua:focus {
   background: var(--secondary-color)!important;
   color: white!important;;
 }

@@ -45,20 +45,20 @@ function MoviePage() {
         setSelectedMovie(res[0] ? res[0] : null);
         setShowResult(true);
         if (resultsContainerRef.current) {
-            const yOffset = 70;
+            const yOffset = -20;
             const y = resultsContainerRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'smooth' });
         }
     }
 
     return (
-        <main>
-            <div className="title-container" ref={resultsContainerRef}>
-                <h3>Can't decide what movie to watch?</h3>
-                <p>Let the wheel decide what you watch tonight</p>
-            </div>
+        <main ref={resultsContainerRef}>
             {!showResult &&
                 <>
+                <div className="title-container">
+                    <h3>Can't decide what movie to watch?</h3>
+                    <p>Let the wheel decide what you watch tonight</p>
+                </div>
                 <MovieForm
                     filter={filter}
                     setFilter={setFilter}
